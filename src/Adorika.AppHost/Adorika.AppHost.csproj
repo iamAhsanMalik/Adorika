@@ -1,0 +1,19 @@
+<Project Sdk="Aspire.AppHost.Sdk/13.1.0">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <UserSecretsId>33f42d13-87df-4e7f-bbf0-39182666b180</UserSecretsId>
+  </PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="Aspire.Hosting.JavaScript" Version="13.1.0" />
+		<PackageReference Include="Aspire.Hosting.PostgreSQL" Version="13.1.0" />
+		<PackageReference Include="Aspire.Hosting.Redis" Version="13.1.0" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\Adorika.Api\Adorika.Api.csproj" />
+	  <ProjectReference Include="..\Adorika.Ui\Adorika.Ui.esproj" />
+	</ItemGroup>
+</Project>

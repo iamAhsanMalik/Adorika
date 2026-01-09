@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.VisualStudio.JavaScript.Sdk/1.0.784122">
+  <PropertyGroup>
+    <StartupCommand>npm run dev</StartupCommand>
+    <JavaScriptTestFramework>None</JavaScriptTestFramework>
+    <!-- Allows the build (or compile) JavaScript project to run in parallel with the other project builds -->
+    <BuildCommand>npm run build</BuildCommand>
+    <!-- Indicates where node_modules are located -->
+    <ShouldRunNpmInstall>true</ShouldRunNpmInstall>
+    <!-- Command to run to install dependencies -->
+    <NpmInstallCommand>npm install</NpmInstallCommand>
+    <PublishAssetsDirectory>$(MSBuildProjectDirectory)\dist\</PublishAssetsDirectory>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="src\" />
+    <Folder Include="public\" />
+  </ItemGroup>
+</Project>

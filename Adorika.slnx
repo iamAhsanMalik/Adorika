@@ -1,0 +1,24 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Folder Name="/src/">
+    <Project Path="src/Adorika.Api/Adorika.Api.csproj" />
+    <Project Path="src/Adorika.AppHost/Adorika.AppHost.csproj" />
+    <Project Path="src/Adorika.Application/Adorika.Application.csproj" />
+    <Project Path="src/Adorika.Domain/Adorika.Domain.csproj" />
+    <Project Path="src/Adorika.Infrastructure/Adorika.Infrastructure.csproj" />
+    <Project Path="src/Adorika.ServiceDefaults/Adorika.ServiceDefaults.csproj" />
+    <Project Path="src/Adorika.Ui/Adorika.Ui.esproj">
+      <Platform Project="AnyCPU" />
+    </Project>
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Adorika.Api.Tests/Adorika.Api.Tests.csproj" />
+    <Project Path="tests/Adorika.Application.Tests/Adorika.Application.Tests.csproj" />
+    <Project Path="tests/Adorika.Domain.Tests/Adorika.Domain.Tests.csproj" />
+    <Project Path="tests/Adorika.Infrastructure.Tests/Adorika.Infrastructure.Tests.csproj" />
+  </Folder>
+</Solution>
