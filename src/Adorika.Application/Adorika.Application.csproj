@@ -11,14 +11,15 @@
     <PackageReference Include="Serilog.AspNetCore" Version="10.0.0" />
     <PackageReference Include="Serilog.Sinks.Async" Version="2.1.0" />
     <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
+	<PackageReference Include="FluentValidation" Version="12.1.1" />
+	<PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.1.1" />
+	<PackageReference Include="Mediator.Abstractions" Version="3.0.1" />
+	<PackageReference Include="Mediator.SourceGenerator" Version="3.0.1" />
+	<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Adorika.Domain\Adorika.Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Common\" />
   </ItemGroup>
 
 </Project>
