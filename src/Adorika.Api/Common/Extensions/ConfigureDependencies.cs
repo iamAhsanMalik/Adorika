@@ -1,4 +1,6 @@
-﻿using Adorika.ServiceDefaults;
+﻿using Adorika.Application;
+using Adorika.Infrastructure;
+using Adorika.ServiceDefaults;
 using Serilog;
 
 namespace Adorika.Api.Common.Extensions;
@@ -12,6 +14,10 @@ public static class ConfigureDependencies
 
         // configure service defaults from .net aspire
         builder.AddServiceDefaults();
+
+        // Infrastructure and Application dependencies
+        builder.Services.AddApplicationDependencies();
+        builder.Services.AddInfrastructureDependencies(builder.Configuration);
 
         // Add CORS with more restrictive policy for production
         builder.Services.AddCors(builder.Configuration);

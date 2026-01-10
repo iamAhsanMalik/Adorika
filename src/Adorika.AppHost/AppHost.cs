@@ -1,18 +1,18 @@
 var builder = DistributedApplication.CreateBuilder(args);
 {
     // This will pull the 'redis' image and run it automatically
-    var redisConnection = builder.AddRedis("RedisConnection");
-
-    // 1. Define the Postgres Server container
-    var postgres = builder.AddPostgres("postgres-server");
+    var redis = builder.AddRedis("RedisConnection");
 
     // 2. Add a specific database instance inside that container
-    var postgresDatabase = postgres.AddDatabase("DefaultConnection");
+    var postgres = builder.AddPostgres("postgres-server")
+                          .WithPgAdmin().AddDatabase("adorika");
 
     // API Configuration
     var api = builder.AddProject<Projects.Adorika_Api>("adorika-api")
-        .WithReference(postgresDatabase)
-        .WithReference(redisConnection)
+        .WithReference(postgres)
+        .WithReference(redis)
+        .WaitFor(postgres)
+        .WaitFor(redis)
         .WithHttpEndpoint(name: "api-http")
         .WithExternalHttpEndpoints();
 

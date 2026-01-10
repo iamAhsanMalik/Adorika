@@ -1,4 +1,5 @@
 using Adorika.Api.Common.Middleware;
+using Adorika.Infrastructure;
 using Adorika.ServiceDefaults;
 
 namespace Adorika.Api.Common.Extensions;
@@ -28,6 +29,7 @@ public static class ConfigureRequestPipeline
         // This should be called after all middleware but can be before other endpoints
         app.MapDefaultEndpoints();
 
+        await app.UseInfrastructureMiddlewares();
         return app;
     }
 }

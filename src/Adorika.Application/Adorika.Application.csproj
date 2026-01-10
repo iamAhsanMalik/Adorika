@@ -17,8 +17,4 @@
     <ProjectReference Include="..\Adorika.Domain\Adorika.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Common\" />
-  </ItemGroup>
-
 </Project>
