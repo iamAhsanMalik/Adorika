@@ -20,6 +20,7 @@ public static class InstallationEndpoints
         group.MapGet("/status", async (IMediator mediator, CancellationToken ct) =>
                 await mediator.Send(new InstallationStatusQuery(), ct))
             .WithName("GetInstallationStatus")
+            .RequireRateLimiting("installation")
             .WithLinks<InstallationStatusResponse>(data => [
                 data.IsInitialized
                     ? new LinkSpec("Login", "login", "POST", Title: "Proceed to Login")
@@ -27,9 +28,10 @@ public static class InstallationEndpoints
             ]);
 
         // 2. Test Connection
-        group.MapPost("/test-connection", async ([FromBody] DatabaseConnectionCommand cmd, IMediator mediator, CancellationToken ct) =>
-                await mediator.Send(cmd, ct))
+        group.MapPost("/test-connection", async ([FromBody] TestDatabaseConnectionQuery query, IMediator mediator, CancellationToken ct) =>
+                await mediator.Send(query, ct))
             .WithName("TestDatabaseConnection")
+            .RequireRateLimiting("installation")
             .WithLinks<DatabaseConnectionResponse>(_ => [
                 new LinkSpec("InstallSystem", "install", "POST")
             ]);
@@ -37,6 +39,7 @@ public static class InstallationEndpoints
         // 3. Perform Installation
         group.MapPost("", async ([FromBody] InstallSystemCommand cmd, IMediator mediator, CancellationToken ct) => await mediator.Send(cmd, ct))
         .WithName("InstallSystem")
+        .RequireRateLimiting("installation")
         .WithLinks<InstallSystemResponse>(_ => [
             new LinkSpec("GetInstallationStatus", "status", "GET"),
             new LinkSpec("Login", "login", "POST")
@@ -45,4 +48,3 @@ public static class InstallationEndpoints
         return app;
     }
 }
-

@@ -9,18 +9,17 @@ public record InstallSystemResponse
     public string? SchemaVersion { get; init; }
 
     /// <summary>
-    /// The connection string formatted for Docker Environment Variables.
-    /// Display this to the user so they can persist their configuration.
+    /// Indicates whether the database has been configured.
+    /// The connection string should be configured separately in environment variables.
     /// </summary>
-    public string? EnvironmentVariable { get; init; }
+    public bool DatabaseConfigured { get; init; }
 
     public static InstallSystemResponse Create(
         string tenantId,
         string tenantIdentifier,
         Guid superUserId,
         string superUserEmail,
-        string schemaVersion,
-        string envVar) =>
+        string schemaVersion) =>
         new()
         {
             TenantId = tenantId,
@@ -28,6 +27,6 @@ public record InstallSystemResponse
             SuperUserId = superUserId,
             SuperUserEmail = superUserEmail,
             SchemaVersion = schemaVersion,
-            EnvironmentVariable = envVar
+            DatabaseConfigured = true
         };
 }

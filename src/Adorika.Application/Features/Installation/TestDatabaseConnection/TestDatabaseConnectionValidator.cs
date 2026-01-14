@@ -6,9 +6,9 @@ namespace Adorika.Application.Features.Installation.TestDatabaseConnection;
 /// Validator for database connection test requests.
 /// Ensures all required connection parameters are valid before attempting connection.
 /// </summary>
-public class DatabaseConnectionValidator : AbstractValidator<DatabaseConnectionCommand>
+public class TestDatabaseConnectionValidator : AbstractValidator<TestDatabaseConnectionQuery>
 {
-    public DatabaseConnectionValidator()
+    public TestDatabaseConnectionValidator()
     {
         RuleFor(x => x.Host)
             .NotEmpty().WithMessage("Database host is required")

@@ -1,4 +1,5 @@
 using Adorika.Application.Common.Interfaces.Persistence;
+using Adorika.Application.Common.Interfaces.Services;
 using Adorika.Domain.Entities.Identity;
 using Adorika.Domain.Entities.MultiTenancy;
 using Adorika.Infrastructure.Persistence;
@@ -42,9 +43,6 @@ public static class ConfigureDependencies
         // Password Hashing
         services.AddScoped<IPasswordHasher<PlatformUser>, PasswordHasher<PlatformUser>>();
         services.AddScoped<IPasswordHasher<ApplicationUser>, PasswordHasher<ApplicationUser>>();
-
-        // HTTP Context Accessor (required for CurrentUserService)
-        services.AddHttpContextAccessor();
 
         // Memory Cache
         services.AddMemoryCache();

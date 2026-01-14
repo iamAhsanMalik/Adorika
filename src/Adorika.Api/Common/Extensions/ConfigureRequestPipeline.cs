@@ -18,6 +18,9 @@ public static class ConfigureRequestPipeline
         // enable cors for frontend application
         app.UseCors();
 
+        // enable rate limiting
+        app.UseRateLimiter();
+
         app.MapDefaultEndpoints();
         app.MapFeaturesEndpoints();
 

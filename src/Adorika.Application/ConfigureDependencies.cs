@@ -24,6 +24,10 @@ public static class ConfigureDependencies
 
         // Register FluentValidation validators from this assembly
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+
+        // HTTP Context Accessor (required for handlers that need HTTP context)
+        services.AddHttpContextAccessor();
+
         return services;
     }
 }

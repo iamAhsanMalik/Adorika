@@ -34,6 +34,9 @@ public class PlatformDbContext(DbContextOptions<PlatformDbContext> options) : Id
     // ===== System Configuration =====
     public DbSet<SystemConfiguration> SystemConfigurations => Set<SystemConfiguration>();
 
+    // ===== Installation Audit =====
+    public DbSet<InstallationAudit> InstallationAudits => Set<InstallationAudit>();
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
@@ -41,6 +44,7 @@ public class PlatformDbContext(DbContextOptions<PlatformDbContext> options) : Id
         ConfigurePlatformIdentity(builder);
         ConfigureTenants(builder);
         ConfigureSystemConfiguration(builder);
+        ConfigureInstallationAudit(builder);
     }
 
     private void ConfigurePlatformIdentity(ModelBuilder builder)
@@ -146,6 +150,27 @@ public class PlatformDbContext(DbContextOptions<PlatformDbContext> options) : Id
             entity.HasKey(s => s.Id);
             entity.Property(s => s.InitialTenantId).HasMaxLength(100);
             entity.Property(s => s.SchemaVersion).HasMaxLength(100);
+        });
+    }
+
+    private void ConfigureInstallationAudit(ModelBuilder builder)
+    {
+        // Configure InstallationAudit - tracks installation attempts
+        builder.Entity<InstallationAudit>(entity =>
+        {
+            entity.ToTable("InstallationAudits");
+            entity.HasKey(a => a.Id);
+            entity.Property(a => a.TenantId).HasMaxLength(100).IsRequired();
+            entity.Property(a => a.TenantIdentifier).HasMaxLength(100).IsRequired();
+            entity.Property(a => a.SuperUserEmail).HasMaxLength(256).IsRequired();
+            entity.Property(a => a.SchemaVersion).HasMaxLength(100).IsRequired();
+            entity.Property(a => a.IpAddress).HasMaxLength(50);
+            entity.Property(a => a.UserAgent).HasMaxLength(500);
+            entity.Property(a => a.DatabaseHost).HasMaxLength(255);
+            entity.Property(a => a.DatabaseName).HasMaxLength(63);
+            entity.Property(a => a.ErrorMessage).HasMaxLength(2000);
+            entity.HasIndex(a => a.InitiatedAt);
+            entity.HasIndex(a => a.IsSuccessful);
         });
     }
 }

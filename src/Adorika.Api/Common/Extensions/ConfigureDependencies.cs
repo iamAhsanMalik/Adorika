@@ -2,12 +2,15 @@ using System.Collections;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Text.Json.Serialization.Metadata;
+using System.Threading.RateLimiting;
 
 using Adorika.Api.Common.Middleware;
 using Adorika.Api.Common.Response;
 using Adorika.Application;
 using Adorika.Infrastructure;
 using Adorika.ServiceDefaults;
+
+using Microsoft.AspNetCore.RateLimiting;
 
 using Serilog;
 
@@ -36,6 +39,30 @@ public static class ConfigureDependencies
 
         builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
         builder.Services.AddProblemDetails();
+
+        // Add rate limiting
+        builder.Services.AddRateLimiter(options =>
+        {
+            // Rate limit for installation endpoints (very restrictive)
+            options.AddFixedWindowLimiter("installation", limiterOptions =>
+            {
+                limiterOptions.PermitLimit = 5;
+                limiterOptions.Window = TimeSpan.FromMinutes(15);
+                limiterOptions.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+                limiterOptions.QueueLimit = 2;
+            });
+
+            // Default rate limit for other endpoints
+            options.AddFixedWindowLimiter("default", limiterOptions =>
+            {
+                limiterOptions.PermitLimit = 100;
+                limiterOptions.Window = TimeSpan.FromMinutes(1);
+                limiterOptions.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+                limiterOptions.QueueLimit = 10;
+            });
+
+            options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+        });
 
         // Configure JSON serialization options
         builder.Services.ConfigureHttpJsonOptions(options =>

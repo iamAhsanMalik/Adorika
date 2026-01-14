@@ -1,13 +1,14 @@
+using Adorika.Domain.Entities.Base;
+using Adorika.Domain.Events;
+
 namespace Adorika.Domain.Entities;
 
 /// <summary>
 /// Represents system-wide configuration and installation state.
 /// This is NOT multi-tenant - it's a singleton entity for the entire system.
 /// </summary>
-public class SystemConfiguration
+public class SystemConfiguration : BaseEntity
 {
-    public Guid Id { get; set; }
-
     /// <summary>
     /// Indicates whether the system has completed initial installation.
     /// Once true, this can NEVER be changed back to false.
@@ -55,7 +56,7 @@ public class SystemConfiguration
     /// <summary>
     /// Marks the system as initialized. This is irreversible.
     /// </summary>
-    public void MarkAsInitialized(string tenantId, Guid superUserId, string schemaVersion)
+    public void MarkAsInitialized(string tenantId, Guid superUserId, string schemaVersion, string? ipAddress = null, string? userAgent = null)
     {
         if (IsInitialized)
         {
@@ -68,5 +69,14 @@ public class SystemConfiguration
         InitialSuperUserId = superUserId;
         SchemaVersion = schemaVersion;
         UpdatedAt = DateTime.UtcNow;
+
+        // Raise domain event
+        AddDomainEvent(new SystemInitializedEvent(
+            Id,
+            tenantId,
+            superUserId,
+            schemaVersion,
+            ipAddress,
+            userAgent));
     }
 }

@@ -1,5 +1,5 @@
+using Adorika.Application.Common.Interfaces.Services;
 using Adorika.Application.Common.Wrapper;
-using Adorika.Infrastructure.Services;
 
 using Mediator;
 

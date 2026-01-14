@@ -1,3 +1,5 @@
+using Adorika.Domain.Events;
+
 namespace Adorika.Domain.Entities.Base;
 
 /// <summary>
@@ -6,10 +8,17 @@ namespace Adorika.Domain.Entities.Base;
 /// </summary>
 public abstract class BaseEntity
 {
+    private readonly List<IDomainEvent> _domainEvents = new();
+
     /// <summary>
     /// Primary key identifier.
     /// </summary>
     public Guid Id { get; set; }
+
+    /// <summary>
+    /// Domain events raised by this entity.
+    /// </summary>
+    public IReadOnlyCollection<IDomainEvent> DomainEvents => _domainEvents.AsReadOnly();
 
     /// <summary>
     /// Checks if this is a transient entity (not yet persisted to database).
@@ -45,6 +54,31 @@ public abstract class BaseEntity
     public override int GetHashCode()
     {
         return IsTransient() ? base.GetHashCode() : Id.GetHashCode();
+    }
+
+    /// <summary>
+    /// Adds a domain event to the entity's event collection.
+    /// </summary>
+    protected void AddDomainEvent(IDomainEvent domainEvent)
+    {
+        _domainEvents.Add(domainEvent);
+    }
+
+    /// <summary>
+    /// Removes a specific domain event from the entity's event collection.
+    /// </summary>
+    protected void RemoveDomainEvent(IDomainEvent domainEvent)
+    {
+        _domainEvents.Remove(domainEvent);
+    }
+
+    /// <summary>
+    /// Clears all domain events from the entity.
+    /// Typically called after events have been dispatched.
+    /// </summary>
+    public void ClearDomainEvents()
+    {
+        _domainEvents.Clear();
     }
 
     /// <summary>
