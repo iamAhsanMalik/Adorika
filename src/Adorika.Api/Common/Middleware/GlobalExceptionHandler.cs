@@ -1,6 +1,6 @@
 using System.Diagnostics;
 
-using Adorika.Api.Common.Wrapper;
+using Adorika.Api.Common.Response;
 using Adorika.Application.Common.Wrapper;
 
 using Microsoft.AspNetCore.Diagnostics;

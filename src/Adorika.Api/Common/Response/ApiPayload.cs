@@ -1,4 +1,4 @@
-namespace Adorika.Api.Common.Wrapper;
+namespace Adorika.Api.Common.Response;
 
 // 6. SHARED MODELS
 public record ApiPayload<T>(

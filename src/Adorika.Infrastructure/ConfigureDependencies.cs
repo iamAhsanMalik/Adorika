@@ -1,10 +1,13 @@
-using Adorika.Application.Common.Persistence;
+using Adorika.Application.Common.Interfaces.Persistence;
+using Adorika.Domain.Entities.Identity;
 using Adorika.Domain.Entities.MultiTenancy;
 using Adorika.Infrastructure.Persistence;
+using Adorika.Infrastructure.Services;
 
 using Finbuckle.MultiTenant.AspNetCore.Extensions;
 using Finbuckle.MultiTenant.Extensions;
 
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,6 +31,17 @@ public static class ConfigureDependencies
         // 2. Register TenantDbContext (WITH Finbuckle, tenant-scoped)
         services.AddScoped<ITenantDbContext, TenantDbContext>();
         services.AddDbContext<TenantDbContext>(ConfigureDbContext(false, configuration));
+
+        // HTTP Context Accessor (required for CurrentUserService)
+        services.AddHttpContextAccessor();
+
+
+        services.AddScoped<IDatabaseUtility, DatabaseUtility>();
+        services.AddScoped<ISystemInstallation, SystemInstallation>();
+
+        // Password Hashing
+        services.AddScoped<IPasswordHasher<PlatformUser>, PasswordHasher<PlatformUser>>();
+        services.AddScoped<IPasswordHasher<ApplicationUser>, PasswordHasher<ApplicationUser>>();
 
         // HTTP Context Accessor (required for CurrentUserService)
         services.AddHttpContextAccessor();

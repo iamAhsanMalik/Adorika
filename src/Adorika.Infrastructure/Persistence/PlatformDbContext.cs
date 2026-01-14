@@ -1,4 +1,4 @@
-using Adorika.Application.Common.Persistence;
+using Adorika.Application.Common.Interfaces.Persistence;
 using Adorika.Domain.Entities;
 using Adorika.Domain.Entities.Identity;
 using Adorika.Domain.Entities.MultiTenancy;

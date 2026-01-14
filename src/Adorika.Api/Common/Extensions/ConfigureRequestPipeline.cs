@@ -1,4 +1,5 @@
 using Adorika.Api.Common.Middleware;
+using Adorika.Api.Endpoints;
 using Adorika.ServiceDefaults;
 
 namespace Adorika.Api.Common.Extensions;
@@ -17,14 +18,8 @@ public static class ConfigureRequestPipeline
         // enable cors for frontend application
         app.UseCors();
 
-        // map default endpoints (health, alive, openapi, scalar)
-        // This should be called after all middleware but can be before other endpoints
-        app.MapGet("/crash", () =>
-        {
-            Console.WriteLine("CRASH HIT!"); // Look at your console output
-            throw new Exception("Brutal Crash!");
-        });
         app.MapDefaultEndpoints();
+        app.MapFeaturesEndpoints();
 
         return app;
     }

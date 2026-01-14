@@ -1,4 +1,4 @@
-namespace Adorika.Api.Common.Wrapper;
+namespace Adorika.Api.Common.Response;
 
 // 2. LINK SPEC
 public record LinkSpec(

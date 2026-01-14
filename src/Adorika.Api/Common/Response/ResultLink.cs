@@ -1,4 +1,4 @@
-namespace Adorika.Api.Common.Wrapper;
+namespace Adorika.Api.Common.Response;
 
 // 1. CLEANED RESULT LINK
 public sealed record ResultLink(

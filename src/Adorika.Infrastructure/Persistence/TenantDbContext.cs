@@ -1,9 +1,11 @@
-﻿using Adorika.Application.Common.Persistence;
+using Adorika.Application.Common.Interfaces.Persistence;
 using Adorika.Domain.Entities.Identity;
 using Adorika.Domain.Entities.MultiTenancy;
+
 using Finbuckle.MultiTenant.Abstractions;
 using Finbuckle.MultiTenant.EntityFrameworkCore.Extensions;
 using Finbuckle.MultiTenant.Identity.EntityFrameworkCore;
+
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 

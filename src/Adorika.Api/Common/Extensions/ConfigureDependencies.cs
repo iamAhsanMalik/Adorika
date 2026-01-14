@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 using System.Text.Json.Serialization.Metadata;
 
 using Adorika.Api.Common.Middleware;
-using Adorika.Api.Common.Wrapper;
+using Adorika.Api.Common.Response;
 using Adorika.Application;
 using Adorika.Infrastructure;
 using Adorika.ServiceDefaults;
@@ -30,12 +30,12 @@ public static class ConfigureDependencies
         // Add CORS with more restrictive policy for production
         builder.Services.AddCors(builder.Configuration);
 
-        builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
-        builder.Services.AddProblemDetails();
-
         var registry = new HateoasRegistry();
         builder.Services.AddSingleton(registry);
         builder.Services.InitializeHateoas(registry);
+
+        builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+        builder.Services.AddProblemDetails();
 
         // Configure JSON serialization options
         builder.Services.ConfigureHttpJsonOptions(options =>

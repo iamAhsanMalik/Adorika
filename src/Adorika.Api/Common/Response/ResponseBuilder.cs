@@ -3,7 +3,7 @@ using System.Diagnostics;
 
 using Adorika.Application.Common.Wrapper;
 
-namespace Adorika.Api.Common.Wrapper;
+namespace Adorika.Api.Common.Response;
 
 // 4. THE HIGH-PERFORMANCE BUILDER
 public ref struct ResponseBuilder<T>(Result<T> result, HttpContext httpContext)

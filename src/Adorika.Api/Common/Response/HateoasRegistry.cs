@@ -1,6 +1,6 @@
 using Adorika.Application.Common.Wrapper;
 
-namespace Adorika.Api.Common.Wrapper;
+namespace Adorika.Api.Common.Response;
 
 // 3. THE REGISTRY (Remains Same)
 public sealed class HateoasRegistry

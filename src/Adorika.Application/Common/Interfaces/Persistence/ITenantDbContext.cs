@@ -1,8 +1,9 @@
-﻿using Adorika.Domain.Entities.Identity;
+using Adorika.Domain.Entities.Identity;
+
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-namespace Adorika.Application.Common.Persistence;
+namespace Adorika.Application.Common.Interfaces.Persistence;
 
 public interface ITenantDbContext
 {
